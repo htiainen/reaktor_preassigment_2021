@@ -1,11 +1,11 @@
-const axios = require("axios").default;
+const axios = require("axios");
 const epxress = require("express");
 
-const FORCE_REQUEST_FAILURE = true;
+const config = require("./config.json");
 
 const instance = axios.create({
     baseURL: "https://bad-api-assignment.reaktor.com/v2",
-    headers: {"x-force-error-mode": FORCE_REQUEST_FAILURE ? "all" : "none"}
+    headers: {"x-force-error-mode": config.FORCE_REQUEST_FAILURE ? "all" : "none"}
 });
 
 const resp = instance.get("products/facemasks").then(response => {

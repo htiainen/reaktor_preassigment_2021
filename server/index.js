@@ -1,13 +1,13 @@
 const axios = require("axios").default;
 const epxress = require("express");
 
-const FORCE_REQUEST_FAILURE = false;
+const FORCE_REQUEST_FAILURE = true;
 
-const legacyInstance = axios.create({
+const instance = axios.create({
     baseURL: "https://bad-api-assignment.reaktor.com/v2",
     headers: {"x-force-error-mode": FORCE_REQUEST_FAILURE ? "all" : "none"}
 });
 
-const resp = legacyInstance.get("products/facemasks").then(response => {
+const resp = instance.get("products/facemasks").then(response => {
     console.log(response.data)
 });

@@ -1,3 +1,4 @@
 module.exports = {
-    FORCE_REQUEST_FAILURE: false
+    FORCE_REQUEST_FAILURE: false,
+    CATEGORIES: ["gloves", "facemasks", "beanies"],
 }

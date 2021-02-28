@@ -1,21 +1,32 @@
-import axios from "axios";
-import express from "express";
+const epxress = require("express");
+const Cache = require("node-cache");
 
-import * as config from "config";
+const legacyAPIInterface = require("./legacyAPIInterface.js");
+const aggregation = require("./aggregation.js");
 
-const server = epxress();
-
-const instance = axios.create({
-    baseURL: "https://bad-api-assignment.reaktor.com/v2",
-    headers: {"x-force-error-mode": config.FORCE_REQUEST_FAILURE ? "all" : "none"}
+const server = epxress()
+const cache = new Cache({
+    stdTTL: 5*60,
+    checkperiod: 5*60,
+    deleteOnExpire: false
 });
 
+const updateCache = () => {
+    legacyAPIInterface.collectData().then(data => {
+        cache.set("productData", data);
+        console.log("cache updated");
+    });
+}
 
-server.listen(8080, () => {console.log("server up on 8080")})
-server.get("/", (req, res) => {
-    instance.get("products/facemasks").then(response => {
-        res.send(
-            response.data
-        );
-    })
+updateCache();
+
+cache.on("expired", (key, value) => {
+    console.log("cache expired, updating")
+    updateCache();
+});
+
+server.listen(8080, () => {console.log("server up on 8080")});
+
+server.get("/api", (req, res) => {
+    res.json(cache.get("productData"));
 });

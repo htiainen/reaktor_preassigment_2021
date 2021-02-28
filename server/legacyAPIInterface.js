@@ -15,12 +15,14 @@ const collectData = async () => {
 }
 
 const extractManufacturers = (productCategories) => {
-    return [...new Set(...productCategories.map(productData => productData.map(product => product.manufacturer)))];
+    return [...new Set(...productCategories.map(
+        productData => productData.map(product => product.manufacturer)))];
 }
 
 const getDataFromManufacturers = async (manufacturers) => {
     try {
-        return Promise.all(manufacturers.map(async manufacturers => await fetchManufacturerAvailability(manufacturers)));
+        return Promise.all(manufacturers.map(
+            async manufacturers => await fetchAvailabilityByManufacturer(manufacturers)));
     } catch (e) {
         console.error(e);
     }
@@ -36,7 +38,7 @@ const getProductsFromCategories = async (categories) => {
     
 }
 
-const fetchManufacturerAvailability = async (manufacturer) => {
+const fetchAvailabilityByManufacturer = async (manufacturer) => {
     const legacyAvailabilityAPI = createAxiosInstance("availability");
     try {
         console.log(`fetching from ${manufacturer}`)
@@ -47,7 +49,7 @@ const fetchManufacturerAvailability = async (manufacturer) => {
             return data;
         }
         console.log(`bad response from ${manufacturer}, retrying`)
-        return await fetchManufacturerAvailability(manufacturer)
+        return await fetchAvailabilityByManufacturer(manufacturer)
     } catch (e) {
         console.error(e);
     }

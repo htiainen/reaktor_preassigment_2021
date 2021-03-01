@@ -13,7 +13,7 @@ const insertValues = (availabilityData, productData) => {
     });
 }
 
-cleanProductData = (dirty) => {
+const cleanProductData = (dirty) => {
     return dirty.map(productType => productType.map(productRecord => {
         return {...productRecord, ...{color:productRecord.color[0]}};
     }));

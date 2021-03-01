@@ -14,10 +14,15 @@ const cache = new Cache({
 });
 
 const updateCache = () => {
-    legacyAPIInterface.collectData().then(data => {
-        cache.set("productData", aggregation.constructAggregateData(data));
-        console.log("cache updated");
-    });
+    try {
+        legacyAPIInterface.collectData().then(data => {
+            cache.set("productData", aggregation.constructAggregateData(data));
+            console.log("cache updated");
+        });
+    } catch (e) {
+        console.error(e);
+    }
+    
 }
 
 updateCache();

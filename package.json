@@ -1,0 +1,9 @@
+{
+  "name": "reaktor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "build": "cd client && yarn build"
+  }
+}

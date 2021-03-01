@@ -34,6 +34,8 @@ server.use("/", express.static("client/build"));
 server.listen(8080, () => {console.log("server up on 8080")});
 
 server.get("/api", (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', "*");
+    res.setHeader("Access-Control-Allow-Headers", "*");
     res.json(cache.get("productData"));
 });
 

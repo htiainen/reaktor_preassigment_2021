@@ -7,7 +7,7 @@ const Home = () => {
   const [data, setData] = useState();
 
   useEffect(() => {
-    fetch("localhost:8080/api/", {mode: "no-cors"})
+    fetch("http://localhost:8080/api/")
       .then(res => {console.log(res); return res.json()}).then(response => {
         setData(response.results);
         console.log(response)

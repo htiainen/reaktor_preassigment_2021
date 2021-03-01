@@ -7,13 +7,13 @@ const aggregation = require("./aggregation.js");
 const server = epxress()
 const cache = new Cache({
     stdTTL: 5*60,
-    checkperiod: 5*60,
+    checkperiod: 60,
     deleteOnExpire: false
 });
 
 const updateCache = () => {
     legacyAPIInterface.collectData().then(data => {
-        cache.set("productData", data);
+        cache.set("productData", aggregation.constructAggregateData(data));
         console.log("cache updated");
     });
 }

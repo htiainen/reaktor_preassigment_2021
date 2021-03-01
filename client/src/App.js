@@ -45,6 +45,7 @@ const App = () => {
 
   return (
     <div>
+      {isLoading && <p>Content is loading, please wait</p>}
       {!isLoading &&
           <>
             <nav>

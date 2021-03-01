@@ -1,16 +1,22 @@
 const constructAggregateData = (data) => {
     const aggregateData = insertValues(cleanAvailabilityData(data.availabilityData), 
-                                        data.productData);
+                                        cleanProductData(data.productData));
     return aggregateData;
 }
 
 const insertValues = (availabilityData, productData) => {
     return productData.map(productType => {
         return productType.map(productRecord => {
-            const availability = availabilityData.get(productRecord.id);
-            return {...productRecord, availability: availability}
+                const availability = availabilityData.get(productRecord.id);
+                return {...productRecord, availability: availability}
         });
     });
+}
+
+cleanProductData = (dirty) => {
+    return dirty.map(productType => productType.map(productRecord => {
+        return {...productRecord, ...{color:productRecord.color[0]}};
+    }));
 }
 
 const cleanAvailabilityData = (dirty) => {

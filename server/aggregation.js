@@ -1,7 +1,6 @@
 const constructAggregateData = (data) => {
     const aggregateData = insertValues(cleanAvailabilityData(data.availabilityData), 
                                         data.productData);
-    console.log(aggregateData);
     return aggregateData;
 }
 

@@ -11,7 +11,7 @@ const collectData = async () => {
         };
     } catch (e) {
         console.error(e);
-    }
+    };
 }
 
 const extractManufacturers = (productCategories) => {
@@ -25,8 +25,7 @@ const getDataFromManufacturers = async (manufacturers) => {
             async manufacturers => await fetchAvailabilityByManufacturer(manufacturers)));
     } catch (e) {
         console.error(e);
-    }
-    
+    };
 }
 
 const getProductsFromCategories = async (categories) => {
@@ -35,7 +34,6 @@ const getProductsFromCategories = async (categories) => {
     } catch (e) {
         console.error(e);
     }
-    
 }
 
 const fetchAvailabilityByManufacturer = async (manufacturer) => {
@@ -45,15 +43,14 @@ const fetchAvailabilityByManufacturer = async (manufacturer) => {
         const response = await fetchFromEndpoint(legacyAvailabilityAPI, manufacturer);
         const data = response.data.response;
         if (Array.isArray(data)) {
-            console.log(`received good response from ${manufacturer}`)
+            console.log(`received good response from ${manufacturer}`);
             return data;
         }
         console.log(`bad response from ${manufacturer}, retrying`)
-        return await fetchAvailabilityByManufacturer(manufacturer)
+        return await fetchAvailabilityByManufacturer(manufacturer);
     } catch (e) {
         console.error(e);
     }
-    
 }
 
 const fetchByCategory = async (category) => {
@@ -61,7 +58,7 @@ const fetchByCategory = async (category) => {
     try {
         console.log(`fetching from ${category}`)
         const response = await fetchFromEndpoint(legacyProductAPI, category);
-        console.log(`received response from ${category}`)
+        console.log(`received response from ${category}`);
         const data = response.data;
         return data;
     } catch (e) {
@@ -87,4 +84,4 @@ const createAxiosInstance = (path) => {
 
 module.exports = {
     collectData: collectData
-}
+};

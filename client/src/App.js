@@ -33,7 +33,7 @@ const App = () => {
   const [productType, setProductType] = useState("gloves");
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/")
+    fetch("api/")
       .then(res => res.json()).then(response => {
         setData(response);
         setIsLoading(false);

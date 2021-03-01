@@ -1,5 +1,6 @@
 const express = require("express");
 const Cache = require("node-cache");
+const cors = require("cors");
 
 const legacyAPIInterface = require("./legacyAPIInterface.js");
 const aggregation = require("./aggregation.js");
@@ -26,7 +27,9 @@ cache.on("expired", (key, value) => {
     updateCache();
 });
 
-server.use(express.static("../client/build"));
+
+
+server.use("/", express.static("client/build"));
 
 server.listen(8080, () => {console.log("server up on 8080")});
 
@@ -34,3 +37,4 @@ server.get("/api", (req, res) => {
     res.json(cache.get("productData"));
 });
 
+server.use(cors({origin: "*"}));
